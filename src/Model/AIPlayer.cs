@@ -1,3 +1,4 @@
+using System;
 using SwinGameSDK;
 namespace BattleShips
 {
@@ -51,23 +52,51 @@ namespace BattleShips
 			/// <summary>
 			/// Check if two locations are equal
 			/// </summary>
-			/// <param name="this">location 1</param>
+			/// <param name="first">location 1</param>
 			/// <param name="other">location 2</param>
 			/// <returns>true if location 1 and location 2 are at the same spot</returns>
-			public static bool operator ==(Location @this, Location other)
+			public static bool operator ==(Location first, Location other)
 			{
-				return @this != null && other != null && @this.Row == other.Row && @this.Column == other.Column;
+				//I HAVE CHANGED THIS (KEVIN) TO FIX STACK OVERFLOW.
+				//BEFORE == and != WERE IMPLEMENTED IN TERMS OF EACHOTHER
+				//THUS CAUSING AN INFINITE LOOP AND EVENTUAL STACK OVERFLOW.
+				bool equals = false;
+				try
+				{
+					if (first.Row == other.Row && first.Column == other.Column)
+						equals = true;
+				}
+				catch (Exception)
+				{
+					return false;
+				}
+
+				return equals;
 			}
 
 			/// <summary>
 			/// Check if two locations are not equal
 			/// </summary>
-			/// <param name="this">location 1</param>
+			/// <param name="first">location 1</param>
 			/// <param name="other">location 2</param>
 			/// <returns>true if location 1 and location 2 are not at the same spot</returns>
-			public static bool operator !=(Location @this, Location other)
+			public static bool operator !=(Location first, Location other)
 			{
-				return @this == null || other == null || @this.Row != other.Row || @this.Column != other.Column;
+				//I HAVE CHANGED THIS (KEVIN) TO FIX STACK OVERFLOW.
+				//BEFORE == and != WERE IMPLEMENTED IN TERMS OF EACHOTHER
+				//THUS CAUSING AN INFINITE LOOP AND EVENTUAL STACK OVERFLOW.
+				bool notEquals = false;
+				try
+				{
+					if (first.Row != other.Row || first.Column != other.Column)
+						notEquals = true;
+				}
+				catch (Exception)
+				{
+					return true;
+				}
+
+				return notEquals;
 			}
 		}
 
