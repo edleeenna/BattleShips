@@ -1,0 +1,20 @@
+﻿<Properties StartupConfiguration="{A482CE99-CCB9-462A-8D2A-2A6D4619BC98}|Default">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.Workbench ActiveDocument="src\GameResources.cs">
+    <Files>
+      <File FileName="src\Model\ResultOfAttack.cs" Line="1" Column="1" />
+      <File FileName="src\Model\Ship.cs" Line="1" Column="1" />
+      <File FileName="src\Model\SeaGridAdapter.cs" Line="12" Column="19" />
+      <File FileName="src\Model\ISeaGrid.cs" Line="1" Column="1" />
+      <File FileName="src\Model\Tile.cs" Line="15" Column="22" />
+      <File FileName="src\Model\BattleShipsGame.cs" Line="82" Column="4" />
+      <File FileName="src\UtilityFunctions.cs" Line="260" Column="22" />
+      <File FileName="src\GameResources.cs" Line="1" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.ItemProperties.BattleShips PreferredExecutionTarget="MonoDevelop.Default" />
+</Properties>
