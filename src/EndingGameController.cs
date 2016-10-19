@@ -1,5 +1,7 @@
 using System;
 using SwinGameSDK;
+using System.Threading;
+
 namespace BattleShips
 {
 
@@ -19,18 +21,36 @@ namespace BattleShips
 			UtilityFunctions.DrawField(GameController.ComputerPlayer.PlayerGrid, GameController.ComputerPlayer, true);
 			UtilityFunctions.DrawSmallField(GameController.HumanPlayer.PlayerGrid, GameController.HumanPlayer);
 
-			if (GameController.HumanPlayer.IsDestroyed) {
-				SwinGame.DrawTextLines("YOU LOSE!", Color.White, Color.Transparent, GameResources.GameFont("ArialLarge"), FontAlignment.AlignCenter, 0, 250, SwinGame.ScreenWidth(), SwinGame.ScreenHeight());
-			} else {
-				SwinGame.DrawTextLines("-- WINNER --", Color.White, Color.Transparent, GameResources.GameFont("ArialLarge"), FontAlignment.AlignCenter, 0, 250, SwinGame.ScreenWidth(), SwinGame.ScreenHeight());
-			}
-		}
+            //For some reason, this doesn't get displayed for long enough. I didn't even know it existed.
 
-		/// <summary>
-		/// Handle the input during the end of the game. Any interaction
-		/// will result in it reading in the highsSwinGame.
-		/// </summary>
-		public static void HandleEndOfGameInput()
+            //Therefore, my task is to convert this to a better form.
+
+            SwinGame.FillRectangle(Color.Black, 75, 75, SwinGame.ScreenWidth() - 150, SwinGame.ScreenHeight() - 150);
+
+            if (GameController.HumanPlayer.IsDestroyed)
+                SwinGame.DrawTextLines("YOU LOSE!", Color.Cyan, Color.Transparent, GameResources.GameFont("ArialLarge"), FontAlignment.AlignCenter, 0, 200, SwinGame.ScreenWidth(), SwinGame.ScreenHeight());
+            else
+                SwinGame.DrawTextLines("YOU WON!", Color.Cyan, Color.Transparent, GameResources.GameFont("ArialLarge"), FontAlignment.AlignCenter, 0, 200, SwinGame.ScreenWidth(), SwinGame.ScreenHeight());
+
+
+            //Display Human Score:
+            SwinGame.DrawTextLines(String.Format("Your Score: {0}", GameController.HumanPlayer.Score), Color.White, Color.Transparent, GameResources.GameFont("ArialLarge"), FontAlignment.AlignCenter, 0, 260, SwinGame.ScreenWidth(), SwinGame.ScreenHeight());
+
+
+            //Display AI Score:
+            SwinGame.DrawTextLines(String.Format("Enemy Score: {0}", GameController.ComputerPlayer.Score), Color.White, Color.Transparent, GameResources.GameFont("ArialLarge"), FontAlignment.AlignCenter, 0, 320, SwinGame.ScreenWidth(), SwinGame.ScreenHeight());
+
+            SwinGame.RefreshScreen();
+
+            //Wait 10 seconds.
+            Thread.Sleep(10000);
+        }
+
+        /// <summary>
+        /// Handle the input during the end of the game. Any interaction
+        /// will result in it reading in the highsSwinGame.
+        /// </summary>
+        public static void HandleEndOfGameInput()
 		{
 			if (SwinGame.MouseClicked(MouseButton.LeftButton) || SwinGame.KeyTyped(KeyCode.vk_RETURN) || SwinGame.KeyTyped(KeyCode.vk_ESCAPE)) {
 				HighScoreController.ReadHighScore(GameController.HumanPlayer.Score);
