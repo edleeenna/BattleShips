@@ -26,7 +26,8 @@ namespace BattleShips
 		/// </summary>
 		/// <value>The current state</value>
 		/// <returns>The current state</returns>
-		public static GameState CurrentState {
+		public static GameState CurrentState
+		{
 			get { return _state.Peek(); }
 		}
 
@@ -35,16 +36,26 @@ namespace BattleShips
 		/// </summary>
 		/// <value>the human player</value>
 		/// <returns>the human player</returns>
-		public static Player HumanPlayer {
+		public static Player HumanPlayer
+		{
 			get { return _human; }
 		}
 
+		public static AIOption Difficulty
+		{
+			get { return _aiSetting; }
+			set
+			{
+				_aiSetting = value;
+			}
+		}
 		/// <summary>
 		/// Returns the computer player.
 		/// </summary>
 		/// <value>the computer player</value>
 		/// <returns>the conputer player</returns>
-		public static Player ComputerPlayer {
+		public static Player ComputerPlayer
+		{
 			get { return _ai; }
 		}
 
