@@ -1,3 +1,4 @@
+using System;
 using SwinGameSDK;
 namespace BattleShips
 {
@@ -20,7 +21,7 @@ namespace BattleShips
 		private static readonly string[][] _menuStructure = {
 			new string[] {
 				"PLAY",
-				"SETUP",
+				"AI: ",
 				"SCORES",
 				"QUIT"
 			},
@@ -30,9 +31,9 @@ namespace BattleShips
 				"QUIT"
 			},
 			new string[] {
-				"EASY",
-				"MEDIUM",
-				"HARD"
+				"EASY AI",
+				"MEDIUM AI",
+				"HARD AI"
 			}
 
 		};
@@ -49,6 +50,8 @@ namespace BattleShips
 
 		private const int SETUP_MENU = 2;
 		private const int MAIN_MENU_PLAY_BUTTON = 0;
+
+
 		private const int MAIN_MENU_SETUP_BUTTON = 1;
 		private const int MAIN_MENU_TOP_SCORES_BUTTON = 2;
 
@@ -62,6 +65,7 @@ namespace BattleShips
 		private const int GAME_MENU_SURRENDER_BUTTON = 1;
 
 		private const int GAME_MENU_QUIT_BUTTON = 2;
+
 		private static readonly Color MENU_COLOR = SwinGame.RGBAColor(2, 167, 252, 255);
 
 		private static readonly Color HIGHLIGHT_COLOR = SwinGame.RGBAColor(1, 57, 86, 255);
@@ -125,6 +129,7 @@ namespace BattleShips
 					//none clicked - so end this sub menu
 					GameController.EndCurrentState();
 				}
+
 			}
 
 			return false;
@@ -192,16 +197,31 @@ namespace BattleShips
 			int btnTop = 0;
 
 			btnTop = MENU_TOP - (MENU_GAP + BUTTON_HEIGHT) * level;
+
 			int i = 0;
-			for (i = 0; i <= _menuStructure[menu].Length - 1; i++) {
+			for (i = 0; i <= _menuStructure[menu].Length - 1; i++) 
+			{
 				int btnLeft = 0;
 				btnLeft = MENU_LEFT + BUTTON_SEP * (i + xOffset);
 				//SwinGame.FillRectangle(Color.White, btnLeft, btnTop, BUTTON_WIDTH, BUTTON_HEIGHT)
 				SwinGame.DrawTextLines(_menuStructure[menu][i], MENU_COLOR, Color.Black, GameResources.GameFont("Menu"), FontAlignment.AlignCenter, btnLeft + TEXT_OFFSET, btnTop + TEXT_OFFSET, BUTTON_WIDTH, BUTTON_HEIGHT);
-
+				switch (GameController.Difficulty)
+				{
+					case AIOption.Easy:
+						_menuStructure[level][1]= "EASY AI";
+						break;
+					case AIOption.Medium:
+						_menuStructure[level][1] =  "MEDIUM AI";
+						break;
+					case AIOption.Hard:
+						_menuStructure[level][1] =   "HARD AI";
+						break;
+				}
 				if (SwinGame.MouseDown(MouseButton.LeftButton) & IsMouseOverMenu(i, level, xOffset)) {
 					SwinGame.DrawRectangle(HIGHLIGHT_COLOR, btnLeft, btnTop, BUTTON_WIDTH, BUTTON_HEIGHT);
 				}
+
+					
 			}
 		}
 
@@ -291,6 +311,7 @@ namespace BattleShips
 			}
 			//Always end state - handles exit button as well
 			GameController.EndCurrentState();
+
 		}
 
 		/// <summary>
